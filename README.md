@@ -1,6 +1,6 @@
 # File Type Plugin
 
-Display the type of file plugin for `NetBeans IDE 8.2+`.
+Display the type of a file plugin for `NetBeans IDE 8.2+`.
 
 ## Feature
 

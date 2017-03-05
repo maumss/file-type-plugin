@@ -1,0 +1,3 @@
+Source repository: git@github.com:maumss/Delete-Tomcat-Files-Plugin.git
+									 https://github.com/maumss/Delete-Tomcat-Files-Plugin.git
+									 https://github.com/maumss/Delete-Tomcat-Files-Plugin
