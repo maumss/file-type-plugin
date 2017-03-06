@@ -3,6 +3,110 @@
 <!-- for some information on what you could do (e.g. targets to override). -->
 <!-- If you delete this file and reopen the project it will be recreated. -->
 <project name="br.com.yahoo.mau_mss.filetypeplugin" default="netbeans" basedir=".">
-    <description>Builds, tests, and runs the project br.com.yahoo.mau_mss.filetypeplugin.</description>
-    <import file="nbproject/build-impl.xml"/>
+  <description>Builds, tests, and runs the project br.com.yahoo.mau_mss.filetypeplugin.</description>
+  <import file="nbproject/build-impl.xml"/>
+		
+	<property file="${basedir}/build.properties"/>
+  <target name="netbeans-extra" depends="obfuscate">
+    <copy file="${build.dir}/obfuscated/${module.jar}"
+          tofile="${cluster}/${module.jar}"/>
+  </target>
+  <target name="debug" depends="netbeans-debug,-jdk-presetdef-nbjpdastart">
+    <ant antfile="${harness.dir}/run.xml" target="debug"/>
+  </target>
+  <target name="netbeans-debug"
+          depends="init,jar,module-xml-regular,module-xml-autoload,
+                  module-xml-eager,javahelp,module-auto-deps,release,verify-class-linkage">
+    <genlist outputfiledir="${cluster}" module="${module.jar}">
+      <fileset dir="${cluster}">
+        <patternset refid="module.files"/>
+      </fileset>
+    </genlist>
+  </target>
+  <target name="clean" depends="files-init,testuserdir-delete">
+    <delete failonerror="false" includeemptydirs="true">
+      <fileset dir="build">
+        <exclude name="testuserdir/"/>
+      </fileset>
+    </delete>
+    <delete dir="${netbeans.javadoc.dir}/${code.name.base.dashes}"/>
+    <delete file="${netbeans.javadoc.dir}/${code.name.base.dashes}.zip"/>
+    <delete failonerror="false">
+      <fileset dir="${cluster}">
+        <patternset refid="module.files"/>
+      </fileset>
+    </delete>
+    <delete file="${cluster}/update_tracking/${code.name.base.dashes}.xml"/>
+    <delete file="${build.dir}/obfuscated/${module.jar}"/>
+  </target>
+  <target name="obfuscate" depends="init">
+    <taskdef resource="proguard/ant/task.properties"
+             classpath="${proguard.jar.path}" />
+    <echo message="Obfuscating ${cluster}/${module.jar}..."/>
+    <mkdir dir="${build.dir}/obfuscated"/>
+    <proguard printmapping="${build.dir}/obfuscated/${code.name.base.dashes}.map"
+              renamesourcefileattribute="SourceFile" ignorewarnings="true">
+      <injar  file="${cluster}/${module.jar}" />
+      <outjar file="${build.dir}/obfuscated/${module.jar}" />
+      <libraryjar path="${module.run.classpath}" />
+      <libraryjar file="${nbjdk.home}/jre/lib/rt.jar" />
+      <keepattribute name="InnerClasses" />
+      <keepattribute name="SourceFile" />
+      <keepattribute name="LineNumberTable" />
+      <keepattribute name="Deprecated" />
+      <keepattribute name="*Annotation*" />
+      <keepattribute name="Signature" />
+      <keep access="public">
+        <field  access="public protected" />
+        <method access="public protected" />
+      </keep>
+      <keepclassmembernames access="public">
+        <method type      ="java.lang.Class"
+                name      ="class$"
+                parameters="java.lang.String" />
+        <method type      ="java.lang.Class"
+                name      ="class$"
+                parameters="java.lang.String,boolean" />
+      </keepclassmembernames>
+      <keepclasseswithmembernames>
+        <method access="native" />
+      </keepclasseswithmembernames>
+      <keepclassmembers extends="java.lang.Enum">
+        <method access="public static"
+                type="**[]"
+                name="values"
+                parameters="" />
+        <method access="public static"
+                type="**"
+                name="valueOf"
+                parameters="java.lang.String" />
+      </keepclassmembers>
+      <keepnames implements="java.io.Serializable"/>
+      <keepclassmembers implements="java.io.Serializable">
+        <field  access    ="final"
+                type      ="long"
+                name      ="serialVersionUID" />
+        <field  access    ="!static !transient"
+                name      ="**"/>
+        <field  access    ="!private"
+                name      ="**"/>
+        <method access    ="!private"
+                name      ="**"/>
+        <method access    ="private"
+                type      ="void"
+                name      ="writeObject"
+                parameters="java.io.ObjectOutputStream" />
+        <method access    ="private"
+                type      ="void"
+                name      ="readObject"
+                parameters="java.io.ObjectOutputStream" />
+        <method type      ="java.lang.Object"
+                name      ="writeReplace"
+                parameters="" />
+        <method type      ="java.lang.Object"
+                name      ="readResolve"
+                parameters="" />
+      </keepclassmembers>
+    </proguard>
+  </target>
 </project>
