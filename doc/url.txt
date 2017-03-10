@@ -1,3 +1,4 @@
-Source repository: git@github.com:maumss/file-type-plugin.git
-									 https://github.com/maumss/file-type-plugin.git
-									 https://github.com/maumss/file-type-plugin
+Source repository:
+  git@github.com:maumss/file-type-plugin.git
+	https://github.com/maumss/file-type-plugin.git
+	https://github.com/maumss/file-type-plugin
