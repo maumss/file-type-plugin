@@ -20,7 +20,7 @@ Just click on a source file. The information will diplay on IDE footer.
 - Also display the encode file.
 
 ## Credits
-Mauricio Soares da Silva - [maumss@users.noreply.github.com](mailto:maumss@users.noreply.github.com)
+[Mauricio Soares da Silva](mailto:maumss.git@gmail.com).
 
 ## License
 
